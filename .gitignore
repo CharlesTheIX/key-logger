@@ -1,0 +1,7 @@
+venv
+dist
+build
+*.spec
+.history.*
+assets/icon.icns
+**/**/__pycache__
