@@ -1,8 +1,12 @@
+.vscode
 **/**/dist
 **/**/venv
 **/**/build
 **/**/*.spec
 **/**/assets/*
+**/**/.DS_Store
 **/**/.history.*
+
+#---------------------------------------
 !**/**/assets/*.png
 **/**assets/icon.png

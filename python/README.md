@@ -4,13 +4,21 @@
 - [Python setup](#python-setup)
   - [Setup virtual environment](#setup-virtual-environment)
   - [Dependency installation](#dependency-installation)
-- [Bash set up](#bash-setup)
-  - [Bash scripts](#bash-scripts)
 - [Building the application](#building-the-application)
 
 ## Notes
 
 If you are using Windows, then it is recommended that you use the Git Bash or WSL terminal to run the commands listed in this documentation.
+
+The `history.csv` file will be saved at the following pathname:
+
+```bash
+# Windows
+~/AppData/Local/KeyLogger/history.csv
+
+# MacOs and Linux
+~/.KeyLogger/history.csv
+```
 
 ## Python setup
 
@@ -59,42 +67,74 @@ pip install -r requirements_[OS].txt
 pip freeze > requirements_[OS].txt
 ```
 
-## Bash setup
+## Development
 
-This project uses some automated bash scripts to aid in setup and building of the application.
+To expand this project you can create other files and import them.
+
+Please keep the requirements files up-to-date as per OS, [see here](#dependency-installation) for more information.
+
+To run the python script in a 'development mode', run the following command:
 
 ```bash
-# Change mod of init script
-chmod +x ./bash/init.sh
-
-# Run the init command
-# The init script will make sure that all the script files are available for execution
-./bash/init.sh
-#-------------------------------------------------------------------------------
+python ./main.py
 ```
 
-### Bash scripts
+Be aware of the following:
 
-The following are a number od bash scripts and a description of what they do.
+```python
+# If you make a sub directory then that sub directory will need an
+# __init__.py in the directory to declare the directory as a module
 
-Please note that on Windows, the installation of the ImageMagick package may be required.
+#-------------------------------------------------------------------------------
+# Import the files from the module
+from [MODULE_NAME / DIRE_NAME] import [FILE_NAME]
+# eg.
+from src import logger
 
-To view help for this see [ImageMagick.md](./ImageMagick.md)
-
-```bash
-# Build the executable
-# This script will build the application into an executable that can be run on
-# Window MacOS or Linux
-# This function will automatically create the icon for the application based on
-# the png files in the assets directory - update the file keeping the file name
-# depending on your OS
-./bash/build.sh
+#-------------------------------------------------------------------------------
+# To use functions with the imported file:
+[FILE_NAME].[FUNCTION_NAME]
+#eg.
+logger.read_file()
 ```
 
 ## Building the application
+
+This project uses an automated bash script to aid in the building of the application.
+
+Please note that on Windows, the installation of the ImageMagick package may be required.
+
+To view help for this see [ImageMagick.md](./ImageMagick.md).
 
 Running the build.sh file will build the application on your system for the relevant OS.
 
 The executable will be created in the dist directory, and can be run via the terminal or by double-clicking the exe within the file explorer.
 
 This application will run in the background, therefore to stop it you will need to end the task via the OS task manager.
+
+```bash
+# Change mod of build script
+chmod +x ./_bash.sh
+
+# Build the executable
+# This script will build the application into an executable that can be run on
+# Window MacOS or Linux
+# This function will automatically create the icon for the application based on
+# the png files in the assets directory - update the file keeping the file name
+# depending on your OS
+./_build.sh
+```
+
+## Clean up
+
+To clean up the project ie remove the build and dist files, run the floowing code:
+
+```bash
+# Change mod of clean script
+chmod +x ./_clean.sh
+
+# Clean the repository build and distribution files
+# This file will run through the build, dist, created icon and spec files(s)
+# and remove them from the repo, leaving a fresh state to re-run the build script
+./_clean.sh
+```

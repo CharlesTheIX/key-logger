@@ -16,7 +16,7 @@ def get_log_file_path() -> Path:
     if system == "Windows":
         log_dir = home_dir / "AppData" / "Local" / "KeyLogger"
     else:
-        log_dir = home_dir / ".keylogger"
+        log_dir = home_dir / ".KeyLogger"
     log_dir.mkdir(parents=True, exist_ok=True)
     return log_dir / "history.csv"
 
