@@ -82,14 +82,12 @@ Please note that on Windows, the installation of the ImageMagick package may be 
 To view help for this see [ImageMagick.md](./ImageMagick.md)
 
 ```bash
-# Create the icon from png
-# This script will convert the icon.png file within the assets directory
-# into a icon.icns file that can be used to set the image of the application when built
-./bash/make_icon.sh
-
 # Build the executable
 # This script will build the application into an executable that can be run on
 # Window MacOS or Linux
+# This function will automatically create the icon for the application based on
+# the png files in the assets directory - update the file keeping the file name
+# depending on your OS
 ./bash/build.sh
 ```
 
@@ -98,3 +96,5 @@ To view help for this see [ImageMagick.md](./ImageMagick.md)
 Running the build.sh file will build the application on your system for the relevant OS.
 
 The executable will be created in the dist directory, and can be run via the terminal or by double-clicking the exe within the file explorer.
+
+This application will run in the background, therefore to stop it you will need to end the task via the OS task manager.
