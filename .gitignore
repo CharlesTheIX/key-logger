@@ -2,6 +2,6 @@ venv
 dist
 build
 *.spec
+assets/*
 .history.*
-assets/icon.icns
-**/**/__pycache__
+!assets/*.png
