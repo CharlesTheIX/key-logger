@@ -2,28 +2,42 @@
 
 get_os() {
   case "$(uname -s)" in
-    Darwin)
-      echo "macos"
-      ;;
-    Linux)
-      echo "linux"
-      ;;
-    MINGW*|MSYS*|CYGWIN*|Windows_NT)
-      echo "windows"
-      ;;
-    *)
-      echo "unknown"
-      ;;
+    Darwin) echo "macos" ;;
+    Linux) echo "linux" ;;
+    MINGW*|MSYS*|CYGWIN*|Windows_NT) echo "windows" ;;
+    *) echo "unknown" ;;
   esac
 }
 
-make_icon() {
-  os=$(get_os)
+os=$(get_os)
+ICON_PATH=""
+ENTRY="./main.py"
+APP_NAME="KeyLogger"
 
+case "$os" in
+  macos) ICON_PATH="assets/icon.icns" ;;
+  linux) ICON_PATH="assets/icon.png" ;;
+  windows) ICON_PATH="assets/icon.ico" ;;
+  *)
+    echo "Unsupported OS."
+    exit 1
+    ;;
+esac
+
+make_icon() {
   case "$os" in
     macos)
+      if ! command -v sips &> /dev/null || ! command -v iconutil &> /dev/null; then
+        echo "Required macOS utilities 'sips' or 'iconutil' are missing."
+        exit 1
+      fi
+
       ICON_SRC="assets/mac_icon.png"
-      echo "Creating .icns for macOS..."
+      if [ ! -f "$ICON_SRC" ]; then
+        echo "Icon source file not found: $ICON_SRC"
+        exit 1
+      fi
+
       mkdir -p assets/icon.iconset
       sips -z 16 16     "$ICON_SRC" --out assets/icon.iconset/icon_16x16.png
       sips -z 32 32     "$ICON_SRC" --out assets/icon.iconset/icon_16x16@2x.png
@@ -37,60 +51,47 @@ make_icon() {
       cp "$ICON_SRC" assets/icon.iconset/icon_512x512@2x.png
       iconutil -c icns assets/icon.iconset -o assets/icon.icns
       rm -rf assets/icon.iconset
-      echo "Created macOS icon: assets/icon.icns"
-      ;;
-
-    linux)
-      ICON_SRC="assets/linux_icon.png"
-      echo "Creating PNG icon for Linux..."
-      if ! command -v magick &> /dev/null; then
-        echo "ImageMagick 'magick' command not found. Please install ImageMagick."
-        exit 1
-      fi
-      magick "$ICON_SRC" -resize 256x256 assets/icon.png
-      echo "Created Linux icon: assets/icon.png"
-      ;;
-
-    windows)
-      ICON_SRC="assets/windows_icon.png"
-      echo "Creating .ico for Windows..."
-      if ! command -v magick &> /dev/null; then
-        echo "ImageMagick 'magick' command not found. Please install ImageMagick."
-        exit 1
-      fi
-      magick "$ICON_SRC" -define icon:auto-resize=64,128,256 assets/icon.ico
-      echo "Created Windows icon: assets/icon.ico"
-      ;;
-
-    *)
-      echo "Unsupported OS: $(uname -s)"
-      exit 1
-      ;;
-  esac
-}
-
-build() {
-  os=$(get_os)
-  APP_NAME="KeyLogger"
-  ENTRY="main.py"
-  ICON_PATH=""
-
-  case "$os" in
-    macos)
       ICON_PATH="assets/icon.icns"
       ;;
     linux)
+      if ! command -v magick &> /dev/null; then
+        echo "ImageMagick 'magick' command not found. Please install ImageMagick."
+        exit 1
+      fi
+
+      ICON_SRC="assets/linux_icon.png"
+      if [ ! -f "$ICON_SRC" ]; then
+        echo "Icon source file not found: $ICON_SRC"
+        exit 1
+      fi
+
+      magick "$ICON_SRC" -resize 256x256 assets/icon.png
       ICON_PATH="assets/icon.png"
       ;;
     windows)
+      if ! command -v magick &> /dev/null; then
+        echo "ImageMagick 'magick' command not found. Please install ImageMagick."
+        exit 1
+      fi
+
+      ICON_SRC="assets/windows_icon.png"
+      if [ ! -f "$ICON_SRC" ]; then
+        echo "Icon source file not found: $ICON_SRC"
+        exit 1
+      fi
+
+      magick "$ICON_SRC" -define icon:auto-resize=64,128,256 assets/icon.ico
       ICON_PATH="assets/icon.ico"
       ;;
     *)
-      echo "Unsupported OS: $(uname -s)"
+      echo "Unsupported OS."
       exit 1
       ;;
   esac
+  echo "Created icon: $ICON_PATH"
+}
 
+build() {
   if [ ! -f "$ICON_PATH" ]; then
     make_icon
 
@@ -99,9 +100,7 @@ build() {
       exit 1
     fi
   fi
-  
 
-  echo "Building $APP_NAME using PyInstaller..."
   pyinstaller --onefile --windowed --name "$APP_NAME" --icon="$ICON_PATH" "$ENTRY"
   echo "Build complete!"
 }

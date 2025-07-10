@@ -52,11 +52,11 @@ This application uses the following main dependencies:
 pip install [DEPENDENCY_NAME]
 
 # Install project dependencies
-pip install -r requirements.txt
+pip install -r requirements_[OS].txt
 
 #-------------------------------------------------------------------------------
 # Create requirements
-pip freeze > requirements.txt
+pip freeze > requirements_[OS].txt
 ```
 
 ## Bash setup
