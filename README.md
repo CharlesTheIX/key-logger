@@ -79,6 +79,11 @@ pip install -r requirements_[OS].txt
 #-------------------------------------------------------------------------------
 # Create requirements
 pip freeze > requirements_[OS].txt
+
+#-------------------------------------------------------------------------------
+# Install dependencies with bash
+chmod +x ./bash.sh
+./bash.sh install
 ```
 
 ## 🛠️ Development
@@ -150,7 +155,7 @@ chmod +x ./bash.sh
 # This function will automatically create the icon for the application based on
 # the png files in the assets directory - update the file keeping the file name
 # depending on your OS
-./build.sh
+./bash.sh build
 ```
 
 ## 🧹 Clean-up
@@ -159,10 +164,10 @@ To clean up the project ie remove the build and dist files, run the following co
 
 ```bash
 # Change mod of clean script
-chmod +x ./clean.sh
+chmod +x ./bash.sh
 
 # Clean the repository build and distribution files
 # This file will run through the build, dist, created icon and spec files(s)
 # and remove them from the repo, leaving a fresh state to re-run the build script
-./clean.sh
+./bash.sh clean
 ```
