@@ -2,6 +2,7 @@
 
 clean() {
     local paths=(
+    "./venv"
     "./dist"
     "./build"
     "./KeyLogger.spec"
