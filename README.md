@@ -1,32 +1,46 @@
-# Python Key Logger
+# Key Logger - Python
 
-- [Notes](#notes)
-- [Python setup](#python-setup)
-  - [Setup virtual environment](#setup-virtual-environment)
-  - [Dependency installation](#dependency-installation)
-- [Building the application](#building-the-application)
+## 📚 Table of Contents
 
-## Notes
+- [Disclaimer](#⚠️-disclaimer)
+- [Notes](#📝-notes)
+- [Python Setup](#🔧-setup)
+  - [Set Up Virtual Environment](#📦-set-up-virtual-environment)
+  - [Install Dependencies](#🧩-dependency-installtion)
+- [Development](#🛠️-development)
+- [Building the Application](#🏗️-building-the-application)
+- [Clean-up](#🧹-clean-up)
 
-If you are using Windows, then it is recommended that you use the Git Bash or WSL terminal to run the commands listed in this documentation.
+## ⚠️ Disclaimer
 
-The `history.csv` file will be saved at the following pathname:
+This software is intended strictly for educational purposes or authorized security testing on systems you own or have explicit permission to monitor.
+
+Unauthorized use of a keylogger may violate privacy laws, computer misuse laws, or company policies.
+By using this project, you agree that the developers and contributors are not responsible for any misuse or damage resulting from its use.
+
+Never use this software to record or monitor activity on a device you do not own or have explicit legal permission to control. Always comply with local laws and regulations.
+
+## 📝 Notes
+
+If you're using **Windows**, it's recommended to use **Git Bash** or **WSL** for running the shell commands in this documentation.
+
+The `history.csv` file will be saved at:
 
 ```bash
 # Windows
 ~/AppData/Local/KeyLogger/history.csv
 
-# MacOs and Linux
+# macOS / Linux
 ~/.KeyLogger/history.csv
 ```
 
-## Python setup
+## 🔧 Setup
 
 This project assumes that python (or python3) and pip are already installed on your local machine.
 
 When you see a python or pip command, it could also be a python 3 or pip3 command respectively.
 
-### Setup virtual environment
+### 📦 Setup virtual environment
 
 ```bash
 # Set up virtual python environment
@@ -48,7 +62,7 @@ source .\venv\Scripts\Activate.ps1
 deactivate
 ```
 
-### Dependency installation
+### 🧩 Dependency installation
 
 This application uses the following main dependencies:
 
@@ -67,7 +81,7 @@ pip install -r requirements_[OS].txt
 pip freeze > requirements_[OS].txt
 ```
 
-## Development
+## 🛠️ Development
 
 To expand this project you can create other files and import them.
 
@@ -98,7 +112,7 @@ from src import logger
 logger.read_file()
 ```
 
-## Building the application
+## 🏗️ Building the application
 
 This project uses an automated bash script to aid in the building of the application.
 
@@ -114,7 +128,7 @@ This application will run in the background, therefore to stop it you will need 
 
 ```bash
 # Change mod of build script
-chmod +x ./_bash.sh
+chmod +x ./bash.sh
 
 # Build the executable
 # This script will build the application into an executable that can be run on
@@ -122,19 +136,19 @@ chmod +x ./_bash.sh
 # This function will automatically create the icon for the application based on
 # the png files in the assets directory - update the file keeping the file name
 # depending on your OS
-./_build.sh
+./build.sh
 ```
 
-## Clean up
+## 🧹 Clean-up
 
-To clean up the project ie remove the build and dist files, run the floowing code:
+To clean up the project ie remove the build and dist files, run the following code:
 
 ```bash
 # Change mod of clean script
-chmod +x ./_clean.sh
+chmod +x ./clean.sh
 
 # Clean the repository build and distribution files
 # This file will run through the build, dist, created icon and spec files(s)
 # and remove them from the repo, leaving a fresh state to re-run the build script
-./_clean.sh
+./clean.sh
 ```
