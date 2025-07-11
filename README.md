@@ -118,7 +118,21 @@ This project uses an automated bash script to aid in the building of the applica
 
 Please note that on Windows, the installation of the ImageMagick package may be required.
 
-To view help for this see [ImageMagick.md](./ImageMagick.md).
+> ### 🧰 ImageMagick Installation - Windows
+>
+> Download ImageMagick for Windows, [Go to the official site](https://imagemagick.org/script/download.php#windows)
+> Choose "ImageMagick-7.x.x-Q16-HDRI-x64-dll.exe"
+> Make sure to check:
+>
+> - Add application directory to your system PATH
+> - Install legacy utilities (if you want the convert command)
+>
+> ### 🧰 ImageMagick Installation - Linux (Ubuntu/Debian)
+>
+> ```bash
+> sudo apt update
+> sudo apt install imagemagick
+> ```
 
 Running the build.sh file will build the application on your system for the relevant OS.
 
