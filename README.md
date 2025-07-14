@@ -4,7 +4,7 @@
 
 - [Disclaimer](#⚠️-disclaimer)
 - [Notes](#📝-notes)
-- [Python Setup](#🔧-setup)
+- [Setup](#🔧-setup)
   - [Set Up Virtual Environment](#📦-set-up-virtual-environment)
   - [Install Dependencies](#🧩-dependency-installtion)
 - [Development](#🛠️-development)
@@ -74,11 +74,11 @@ This application uses the following main dependencies:
 pip install [DEPENDENCY_NAME]
 
 # Install project dependencies
-pip install -r requirements_[OS].txt
+pip install -r ./requirements/[OS].txt
 
 #-------------------------------------------------------------------------------
 # Create requirements
-pip freeze > requirements_[OS].txt
+pip freeze > ./requirements/[OS].txt
 
 #-------------------------------------------------------------------------------
 # Install dependencies with bash
@@ -96,25 +96,6 @@ To run the python script in a 'development mode', run the following command:
 
 ```bash
 python ./main.py
-```
-
-Be aware of the following:
-
-```python
-# If you make a sub directory then that sub directory will need an
-# __init__.py in the directory to declare the directory as a module
-
-#-------------------------------------------------------------------------------
-# Import the files from the module
-from [MODULE_NAME / DIRE_NAME] import [FILE_NAME]
-# eg.
-from src import logger
-
-#-------------------------------------------------------------------------------
-# To use functions with the imported file:
-[FILE_NAME].[FUNCTION_NAME]
-#eg.
-logger.read_file()
 ```
 
 ## 🏗️ Building the application
@@ -139,14 +120,14 @@ Please note that on Windows, the installation of the ImageMagick package may be 
 > sudo apt install imagemagick
 > ```
 
-Running the build.sh file will build the application on your system for the relevant OS.
+Running the bash.sh file with the `build` argument will build the application on your system for the relevant OS.
 
 The executable will be created in the dist directory, and can be run via the terminal or by double-clicking the exe within the file explorer.
 
 This application will run in the background, therefore to stop it you will need to end the task via the OS task manager.
 
 ```bash
-# Change mod of build script
+# Change mod of bash script
 chmod +x ./bash.sh
 
 # Build the executable
@@ -163,11 +144,11 @@ chmod +x ./bash.sh
 To clean up the project ie remove the build and dist files, run the following code:
 
 ```bash
-# Change mod of clean script
+# Change mod of bash script
 chmod +x ./bash.sh
 
 # Clean the repository build and distribution files
-# This file will run through the build, dist, created icon and spec files(s)
+# This file will run through the build, dist, created icon and spec file(s)
 # and remove them from the repo, leaving a fresh state to re-run the build script
 ./bash.sh clean
 ```
